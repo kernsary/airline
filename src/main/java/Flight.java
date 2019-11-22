@@ -1,5 +1,4 @@
 import java.util.ArrayList;
-import java.util.BitSet;
 
 public class Flight {
 
@@ -9,6 +8,7 @@ public class Flight {
     private String destination;
     private String departureAirport;
     private String departureTime;
+    private int availableSeats;
 
 
     public Flight(Plane plane, String flightNum, String destination, String departureAirport, String departureTime) {
@@ -18,8 +18,8 @@ public class Flight {
         this.destination = destination;
         this.departureAirport = departureAirport;
         this.departureTime = departureTime;
+        this.availableSeats = this.plane.getPlaneTypeCapacity();
     }
-
 
     public ArrayList<Passenger> getPassengers() {
         return this.passengers;
@@ -44,4 +44,16 @@ public class Flight {
     public String getDepartureTime() {
         return this.departureTime;
     }
+
+    public int getAvailableSeats() {
+        return this.availableSeats;
+    }
+
+    public void bookPassenger(Passenger newPassenger) {
+        if (this.availableSeats > 0) {
+            this.passengers.add(newPassenger);
+            this.availableSeats -= 1;
+        }
+    }
+
 }

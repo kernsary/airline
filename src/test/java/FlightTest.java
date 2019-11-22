@@ -45,5 +45,29 @@ public class FlightTest {
         assertEquals("1300", flight1.getDepartureTime());
     }
 
+    @Test
+    public void canGetAvailableSeatsAtStart() {
+        assertEquals(2, flight1.getAvailableSeats());
+    }
+
+    @Test
+    public void canBookPassengerIfSeatsAvailable() {
+        Passenger passenger1 = new Passenger("Alan Partridge", 3);
+        flight1.bookPassenger(passenger1);
+        assertEquals(1, flight1.getAvailableSeats());
+        assertEquals(1, flight1.getPassengers().size());
+    }
+
+    @Test
+    public void cannotBookPassengerIfNoSeatsAvailable() {
+        Passenger passenger1 = new Passenger("Alan Partridge", 3);
+        Passenger passenger2 = new Passenger("Imelda Marcos", 68);
+        Passenger passenger3 = new Passenger("Carlos Jackal", 1);
+        flight1.bookPassenger(passenger1);
+        flight1.bookPassenger(passenger2);
+        flight1.bookPassenger(passenger3);
+        assertEquals(0, flight1.getAvailableSeats());
+        assertEquals(2, flight1.getPassengers().size());
+    }
 
 }
